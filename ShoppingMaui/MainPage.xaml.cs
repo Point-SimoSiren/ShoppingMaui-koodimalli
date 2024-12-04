@@ -7,17 +7,20 @@ namespace ShoppingMaui
 {
     public partial class MainPage : ContentPage
     {
-        
+
 
         public MainPage()
         {
             InitializeComponent();
             LoadDataFromRestAPI();
+
         }
 
-        // LISTAN HAKEMINEN BACKENDISTÄ
-        async void LoadDataFromRestAPI()
+    
+    // LISTAN HAKEMINEN BACKENDISTÄ
+    public async Task LoadDataFromRestAPI()
         {
+           
             // Latausilmoitus näkyviin
             Loading_label.IsVisible = true;
             HttpClient client = new HttpClient();
@@ -33,13 +36,23 @@ namespace ShoppingMaui
 
             // Latausilmoitus piiloon
             Loading_label.IsVisible = false;
-            //addPageBtn.IsVisible = true;
-            //kerätty_nappi.IsVisible = true;
 
+            // Stop the refresh animation
+            refreshView.IsRefreshing = false;
         }
 
 
+        // Lisäyssivulle navigoiminen
+        private async void addPageBtn_Clicked(object sender, EventArgs e)
+        {
+            var addingPage = new AddingPage(this);
+            await Shell.Current.Navigation.PushModalAsync(addingPage);
+        }
 
+        // PULL TO REFRESH toiminto 
+        private void refreshView_Refreshing(object sender, EventArgs e)
+        {
+            LoadDataFromRestAPI();
+        }
     }
-
 }
