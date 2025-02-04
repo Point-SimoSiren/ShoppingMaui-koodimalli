@@ -54,5 +54,13 @@ namespace ShoppingMaui
         {
             LoadDataFromRestAPI();
         }
+
+
+        private void itemList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            Shoplist? selectedItem = itemList.SelectedItem as Shoplist;
+            kerätty_nappi.Text = "Poimi " + selectedItem?.Item;
+        }
+
     }
 }

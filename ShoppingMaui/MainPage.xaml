@@ -20,9 +20,11 @@
                    TextColor="Orange" FontSize="24"/>
             </Frame>
 
-            <Button Grid.Row="1" x:Name="kerätty_nappi" Text="Valitse poimittava tuote listalta"
+            <Button Grid.Row="1" x:Name="kerätty_nappi" Text="Valitse poimittava tuote listalta" 
                 IsVisible="true" Margin="10,10,10,10" FontSize="24" 
                 Padding="15, 15, 15, 15"  BackgroundColor="GreenYellow" TextColor="Black"/>
+
+            
 
 
             <Label x:Name = "Loading_label" TextColor="White" FontSize="24"  Grid.Row="2" Text="Ladataan ostoslistaa..."/>
@@ -30,7 +32,7 @@
 
             <!-- Vieritettävä sisältö -->
             <ScrollView Grid.Row="3">
-                <ListView x:Name="itemList" SelectionMode="Single" Margin="20, 0">
+                <ListView x:Name="itemList" ItemSelected="itemList_ItemSelected" SelectionMode="Single" Margin="20, 0">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
