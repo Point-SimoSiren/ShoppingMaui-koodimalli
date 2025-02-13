@@ -62,5 +62,41 @@ namespace ShoppingMaui
             kerätty_nappi.Text = "Poimi " + selectedItem?.Item;
         }
 
+        // Tuotteen poistaminen listalta kun se on kerätty
+        async void kerätty_nappi_Clicked(object sender, EventArgs e)
+        {
+            Shoplist? selected = itemList.SelectedItem as Shoplist;
+
+            if (selected == null)
+            {
+                await DisplayAlert("Valinta puuttuu", "Valitse ensin poimittava tuote", "ok");
+                return;
+            }
+
+            bool answer = await DisplayAlert("Menikö oikein?", selected.Item + " kerätty?", "Yes! Kyllä meni!", "Ei, Yritän uusiksi");
+            if (answer == false)
+            {
+                return;
+            }
+
+            // Jos kaikki on hyvin tuote poistetaan
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://shoppingbackendope.azurewebsites.net");
+            HttpResponseMessage res = await client.DeleteAsync("/api/shoplist/" + selected.Id);
+
+            if (res.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                await LoadDataFromRestAPI();
+            }
+            else
+            {
+                await DisplayAlert("Tilapäinen virhe", "Joku muu on saattanut poistaa tuotteen sen jälkeen kun listauksesi on viimeeksi päivittynyt?",
+                    "Lataa uudelleen");
+               await LoadDataFromRestAPI();
+               
+            }
+
+
+        }
     }
 }

@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShoppingMaui.MainPage" BackgroundColor="Black">
 
-    <RefreshView x:Name="refreshView" Refreshing="refreshView_Refreshing" IsRefreshing="{Binding Source={x:Reference refreshView}, Path=IsRefreshing}">
+    <RefreshView x:Name="refreshView" Refreshing="refreshView_Refreshing" 
+                 IsRefreshing="{Binding Source={x:Reference refreshView}, Path=IsRefreshing}">
+        
         <Grid>
 
             <Grid.RowDefinitions>
@@ -21,7 +23,7 @@
             </Frame>
 
             <Button Grid.Row="1" x:Name="kerätty_nappi" Text="Valitse poimittava tuote listalta" 
-                IsVisible="true" Margin="10,10,10,10" FontSize="24" 
+                IsVisible="true" Margin="10,10,10,10" FontSize="24" Clicked="kerätty_nappi_Clicked"
                 Padding="15, 15, 15, 15"  BackgroundColor="GreenYellow" TextColor="Black"/>
 
             
